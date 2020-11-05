@@ -1,30 +1,67 @@
 "use strict";
-var users = [
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "adadazd", quantity: 5 },
+const users = [
+    { id: "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5 },
+    { id: "fdsfsfds", name: "adazdazd", quantity: 5 }
 ];
 function displayJsonToHtml(json) {
-    var cols = Object.keys(json[0]);
-    var headerRow = cols
-        .map(function (col) { return "<th id=\"sort_table_" + col + "\">" + col + "</th>"; })
+    let cols = Object.keys(json[0]);
+    json.map(function (_item, index) {
+        cols = [...cols, ...Object.keys(json[index])];
+    });
+    cols = getUnique(cols);
+    let headerRow = cols
+        .map(col => `<th id="sort_table_${col}">${col}</th>`)
         .join("");
-    var rows = json
-        .map(function (row) {
-        var tds = cols
-            .map(function (col) { return "<td>" + row[col] + "</td>"; })
+    let rows = json
+        .map((row) => {
+        let tds = cols
+            .map(col => `<td>${row[col] === undefined ? "aucune donnée" : row[col]}</td>`)
             .join("");
-        return "<tr>" + tds + "</tr>";
+        return `<tr>${tds}</tr>`;
     })
         .join("");
-    var table = "\n\t<table>\n\t\t<thead>\n      <tr>\n        " + headerRow + "\n      </tr>\n\t\t<thead>\n\t\t<tbody>\n\t\t\t" + (rows || "aucune donnée") + "\n\t\t<tbody>\n  <table>";
+    const table = `
+	<table>
+		<thead>
+      <tr>
+        ${headerRow}
+      </tr>
+		<thead>
+		<tbody>
+			${rows}
+		<tbody>
+  <table>`;
     return table;
 }
-var appDiv = document.getElementById('app');
+function getUnique(array) {
+    var uniqueArray = [];
+    for (let value of array) {
+        if (uniqueArray.indexOf(value) === -1) {
+            uniqueArray.push(value);
+        }
+    }
+    return uniqueArray;
+}
+const appDiv = document.getElementById('app');
 if (appDiv) {
     appDiv.innerHTML += "<h1>Exercice TypeScript</h1>";
     appDiv.innerHTML += displayJsonToHtml(users);

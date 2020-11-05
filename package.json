@@ -1,0 +1,24 @@
+{
+  "name": "Projet-Typescript-Lu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RafaelANNO/Projet-Typescript-Lu.git"
+  },
+  "keywords": [],
+  "author": "Rafael ANNO",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RafaelANNO/Projet-Typescript-Lu/issues"
+  },
+  "homepage": "https://github.com/RafaelANNO/Projet-Typescript-Lu#readme",
+  "devDependencies": {
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.0.5"
+  }
+}
