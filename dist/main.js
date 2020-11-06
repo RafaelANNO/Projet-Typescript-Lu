@@ -1,10 +1,11 @@
 "use strict";
-const users = [
-    { id: "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0 },
-    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 },
-    { id: "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5 }
+var _a;
+let users = [
+    { id: "3F", name: "adazdazd", category: "feref" },
+    { id: "1T", name: "adazdazd", category: "adadffeazd", quantity: 0 },
+    { id: "27", name: "adazdazd", category: "feref", quantity: 5 }
 ];
-function displayJsonToHtml(json) {
+function displayArrayJSONToHtml(json) {
     let cols = [];
     json.map(function (_item, index) {
         cols = [...cols, ...Object.keys(json[index])];
@@ -22,7 +23,7 @@ function displayJsonToHtml(json) {
     })
         .join("");
     const table = `
-	<table>
+	<table id="tableau_exercice_1">
 		<thead>
       <tr>
         ${headerRow}
@@ -46,5 +47,8 @@ function getUnique(array) {
 const appDiv = document.getElementById('app');
 if (appDiv) {
     appDiv.innerHTML += "<h1>Exercice TypeScript</h1>";
-    appDiv.innerHTML += displayJsonToHtml(users);
+    appDiv.innerHTML += displayArrayJSONToHtml(users);
+    let div = (_a = document.createElement("div")) === null || _a === void 0 ? void 0 : _a.setAttribute("id", "div_tableau_2");
+    let tableau = document.createElement("table");
+    document.body.appendChild(tableau);
 }

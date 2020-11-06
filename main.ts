@@ -1,23 +1,22 @@
 // /data :folder
-const users = [
-  {id : "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5}
+let users = [
+  {id : "3F", name: "adazdazd", category: "feref"},
+  {id : "1T", name: "adazdazd", category: "adadffeazd", quantity: 0},
+  {id : "27", name: "adazdazd", category: "feref", quantity: 5}
 ];
 // ------------------
 
 // method :folder
 
 /**
- * 
- * Affiche un tableau de category: "feref",json en html
+ * Afficher un tableau d'objet en html
  * @param json 
  */
-function displayJsonToHtml(json: object[]): string {
+function displayArrayJSONToHtml(json: object[]): string {
   let cols : string[] = [];
   json.map(function (_item, index):void {
     cols = [...cols, ...Object.keys(json[index])]
-  })
+  });
   cols = getUnique(cols);
   let headerRow = cols
     .map(col => `<th id="sort_table_${col}">${col}</th>`)
@@ -31,7 +30,7 @@ function displayJsonToHtml(json: object[]): string {
     })
     .join("");
   const table = `
-	<table>
+	<table id="tableau_exercice_1">
 		<thead>
       <tr>
         ${headerRow}
@@ -44,17 +43,16 @@ function displayJsonToHtml(json: object[]): string {
   return table;
 }
 
-function getUnique(array: any){
+function getUnique(array: string[]){
   var uniqueArray = [];
-  
-  // Loop through array values
   for(let value of array){
-      if(uniqueArray.indexOf(value) === -1){
-          uniqueArray.push(value);
-      }
+    if(uniqueArray.indexOf(value) === -1){
+      uniqueArray.push(value);
+    }
   }
   return uniqueArray;
 }
+
 // ------------------
 
 //main.ts
@@ -62,6 +60,9 @@ const appDiv: HTMLElement | null = document.getElementById('app');
 
 if (appDiv) {
   appDiv.innerHTML += "<h1>Exercice TypeScript</h1>";
-  appDiv.innerHTML += displayJsonToHtml(users);
+  appDiv.innerHTML += displayArrayJSONToHtml(users);
+  let div = document.createElement("div")?.setAttribute("id", "div_tableau_2");
+  let tableau = document.createElement("table");
+  document.body.appendChild(tableau);
 }
 //-----------------
