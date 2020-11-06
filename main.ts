@@ -2,25 +2,7 @@
 const users = [
   {id : "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0},
   {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadffeazd", quantity: 0},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadefrefazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adadrefrefeazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", category: "adarefrefdazd", quantity: 5},
-  {id : "fdsfsfds", name: "adazdazd", quantity: 5}
+  {id : "fdsfsfds", name: "adazdazd", category: "feref", quantity: 5}
 ];
 // ------------------
 
@@ -32,7 +14,7 @@ const users = [
  * @param json 
  */
 function displayJsonToHtml(json: object[]): string {
-  let cols = Object.keys(json[0]);
+  let cols : string[] = [];
   json.map(function (_item, index):void {
     cols = [...cols, ...Object.keys(json[index])]
   })
