@@ -1,68 +1,68 @@
-// /data :folder
-let users = [
-  {id : "3F", name: "adazdazd", category: "feref"},
+// data :folder
+let users : any[] = [
+  {id : "27", name: "1", category: "feref", quantity: 5},
+  {id : "1T", name: "aaaaaadd", category: "adadffeazd", quantity: 0},
+  {id : "27", name: "adazgfzd", category: "feref",      quantity: 5},
   {id : "1T", name: "adazdazd", category: "adadffeazd", quantity: 0},
-  {id : "27", name: "adazdazd", category: "feref", quantity: 5}
+  {id : "27", name: "adzefzfz", category: "feref",      quantity: 5},
+  {id : "1T", name: "ngngnvvv", category: "adadffeazd", quantity: 0}
 ];
-// ------------------
 
-// method :folder
+function create_the_table_from_json() {
 
-/**
- * Afficher un tableau d'objet en html
- * @param json 
- */
-function displayArrayJSONToHtml(json: object[]): string {
-  let cols : string[] = [];
-  json.map(function (_item, index):void {
-    cols = [...cols, ...Object.keys(json[index])]
-  });
-  cols = getUnique(cols);
-  let headerRow = cols
-    .map(col => `<th id="sort_table_${col}">${col}</th>`)
-    .join("");
-  let rows = json
-    .map((row: { [x: string]: any; }) => {
-      let tds = cols
-        .map(col => `<td>${row[col] === undefined ? "aucune donnée": row[col]}</td>`)
-        .join("");
-      return `<tr>${tds}</tr>`;
-    })
-    .join("");
-  const table = `
-	<table id="tableau_exercice_1">
-		<thead>
-      <tr>
-        ${headerRow}
-      </tr>
-		<thead>
-		<tbody>
-			${rows}
-		<tbody>
-  <table>`;
-  return table;
-}
-
-function getUnique(array: string[]){
-  var uniqueArray = [];
-  for(let value of array){
-    if(uniqueArray.indexOf(value) === -1){
-      uniqueArray.push(value);
-    }
+  // EXTRACT VALUE FOR HTML HEADER. 
+  // ('Book ID', 'Book Name', 'Category' and 'Price')
+  let col : string[] = [];
+  for (let i = 0; i < users.length; i++) {
+      for (let key in users[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+      }
   }
-  return uniqueArray;
+
+  // CREATE DYNAMIC TABLE.
+  let table = document.createElement("table");
+
+  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+  let tr = table.insertRow(-1);                   // TABLE ROW.
+
+  for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");      // TABLE HEADER.
+      th.innerHTML = col[i];
+      th.addEventListener("click", function (e) {
+        // trier
+        function SortByID(x: any, y:any) {
+          return x[col[i]] - y[col[i]]; 
+        }
+        // reapeler la fonction pour render le tableau
+        users.sort(SortByID)
+        create_the_table_from_json();
+      })
+      tr.appendChild(th);
+  }
+
+  // ADD JSON DATA TO THE TABLE AS ROWS.
+  for (let i = 0; i < users.length; i++) {
+
+      tr = table.insertRow(-1);
+
+      for (let j = 0; j < col.length; j++) {
+          let tabCell = tr.insertCell(-1);
+          if (users[i][col[j]] !== undefined) {
+            tabCell.innerHTML = users[i][col[j]];
+          }else{
+            tabCell.innerHTML = "Aucune donnée disponible"
+          }
+          
+      }
+  }
+
+  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+  let divContainer = document.getElementById("showData");
+  if (divContainer) {
+    divContainer.innerHTML = "";
+    divContainer.appendChild(table);
+  }
 }
-
-// ------------------
-
-//main.ts
-const appDiv: HTMLElement | null = document.getElementById('app');
-
-if (appDiv) {
-  appDiv.innerHTML += "<h1>Exercice TypeScript</h1>";
-  appDiv.innerHTML += displayArrayJSONToHtml(users);
-  let div = document.createElement("div")?.setAttribute("id", "div_tableau_2");
-  let tableau = document.createElement("table");
-  document.body.appendChild(tableau);
-}
-//-----------------

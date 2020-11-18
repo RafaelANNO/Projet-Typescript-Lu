@@ -1,54 +1,50 @@
 "use strict";
-var _a;
 let users = [
-    { id: "3F", name: "adazdazd", category: "feref" },
+    { id: "27", name: "1", category: "feref", quantity: 5 },
+    { id: "1T", name: "aaaaaadd", category: "adadffeazd", quantity: 0 },
+    { id: "27", name: "adazgfzd", category: "feref", quantity: 5 },
     { id: "1T", name: "adazdazd", category: "adadffeazd", quantity: 0 },
-    { id: "27", name: "adazdazd", category: "feref", quantity: 5 }
+    { id: "27", name: "adzefzfz", category: "feref", quantity: 5 },
+    { id: "1T", name: "ngngnvvv", category: "adadffeazd", quantity: 0 }
 ];
-function displayArrayJSONToHtml(json) {
-    let cols = [];
-    json.map(function (_item, index) {
-        cols = [...cols, ...Object.keys(json[index])];
-    });
-    cols = getUnique(cols);
-    let headerRow = cols
-        .map(col => `<th id="sort_table_${col}">${col}</th>`)
-        .join("");
-    let rows = json
-        .map((row) => {
-        let tds = cols
-            .map(col => `<td>${row[col] === undefined ? "aucune donnée" : row[col]}</td>`)
-            .join("");
-        return `<tr>${tds}</tr>`;
-    })
-        .join("");
-    const table = `
-	<table id="tableau_exercice_1">
-		<thead>
-      <tr>
-        ${headerRow}
-      </tr>
-		<thead>
-		<tbody>
-			${rows}
-		<tbody>
-  <table>`;
-    return table;
-}
-function getUnique(array) {
-    var uniqueArray = [];
-    for (let value of array) {
-        if (uniqueArray.indexOf(value) === -1) {
-            uniqueArray.push(value);
+function create_the_table_from_json() {
+    let col = [];
+    for (let i = 0; i < users.length; i++) {
+        for (let key in users[i]) {
+            if (col.indexOf(key) === -1) {
+                col.push(key);
+            }
         }
     }
-    return uniqueArray;
-}
-const appDiv = document.getElementById('app');
-if (appDiv) {
-    appDiv.innerHTML += "<h1>Exercice TypeScript</h1>";
-    appDiv.innerHTML += displayArrayJSONToHtml(users);
-    let div = (_a = document.createElement("div")) === null || _a === void 0 ? void 0 : _a.setAttribute("id", "div_tableau_2");
-    let tableau = document.createElement("table");
-    document.body.appendChild(tableau);
+    let table = document.createElement("table");
+    let tr = table.insertRow(-1);
+    for (let i = 0; i < col.length; i++) {
+        let th = document.createElement("th");
+        th.innerHTML = col[i];
+        th.addEventListener("click", function (e) {
+            function SortByID(x, y) {
+                return x[col[i]] - y[col[i]];
+            }
+            users.sort(SortByID);
+            create_the_table_from_json();
+        });
+        tr.appendChild(th);
+    }
+    for (let i = 0; i < users.length; i++) {
+        tr = table.insertRow(-1);
+        for (let j = 0; j < col.length; j++) {
+            let tabCell = tr.insertCell(-1);
+            if (users[i][col[j]] !== undefined) {
+                tabCell.innerHTML = users[i][col[j]];
+            }
+            else {
+                tabCell.innerHTML = "Aucune donnée disponible";
+            }
+        }
+    }
+    let divContainer = document.getElementById("showData");
+    if (divContainer) {
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+    }
 }
