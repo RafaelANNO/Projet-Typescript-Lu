@@ -8,6 +8,17 @@ let users = [
     { id: "1T", name: "ngngnvvv", category: "adadffeazd", quantity: 0 }
 ];
 let userMetaData = [];
+let col2 = [];
+for (let i = 0; i < users.length; i++) {
+    for (let key in users[i]) {
+        if (col2.indexOf(key) === -1) {
+            col2.push(key);
+        }
+    }
+}
+col2.map(function (item) {
+    userMetaData.push({ sortMode: null });
+});
 function create_the_table_from_json() {
     let col = [];
     for (let i = 0; i < users.length; i++) {
@@ -18,28 +29,42 @@ function create_the_table_from_json() {
         }
     }
     let table = document.createElement("table");
+    table.setAttribute("class", "main_table");
     let tr = table.insertRow(-1);
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th");
         th.setAttribute("id", col[i]);
+        th.setAttribute("class", "clickable");
         th.innerHTML = col[i];
-        userMetaData.push({ sortMode: null });
         th.addEventListener("click", function (e) {
             if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
-                function SortByID(x, y) {
-                    return x[col[i]] - y[col[i]];
-                }
-                users.sort(SortByID);
+                users.sort((x, y) => {
+                    console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
+                    if (x[col[i]] > y[col[i]]) {
+                        return 1;
+                    }
+                    else if (x[col[i]] < y[col[i]]) {
+                        return -1;
+                    }
+                    return 0;
+                });
                 userMetaData[i].sortMode = "ASC";
             }
             else {
-                function Inverse_SortByID(x, y) {
-                    return y[col[i]] - x[col[i]];
-                }
-                users.sort(Inverse_SortByID);
+                users.sort((x, y) => {
+                    console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
+                    if (x[col[i]] > y[col[i]]) {
+                        return -1;
+                    }
+                    else if (x[col[i]] < y[col[i]]) {
+                        return 1;
+                    }
+                    return 0;
+                });
                 userMetaData[i].sortMode = "DESC";
             }
             create_the_table_from_json();
+            console.log(userMetaData);
         });
         tr.appendChild(th);
     }

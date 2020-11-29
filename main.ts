@@ -9,6 +9,17 @@ let users : any[] = [
 ];
 
 let userMetaData : any[] = [];
+let col2 : string[] = [];
+for (let i = 0; i < users.length; i++) {
+    for (let key in users[i]) {
+        if (col2.indexOf(key) === -1) {
+          col2.push(key);
+        }
+    }
+}
+col2.map(function (item:any) {
+  userMetaData.push({sortMode: null})
+})
 
 function create_the_table_from_json() {
 
@@ -25,6 +36,7 @@ function create_the_table_from_json() {
 
   // CREATE DYNAMIC TABLE.
   let table = document.createElement("table");
+  table.setAttribute("class", "main_table")
 
   // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
 
@@ -32,28 +44,38 @@ function create_the_table_from_json() {
 
   for (let i = 0; i < col.length; i++) {
       let th = document.createElement("th");      // TABLE HEADER.
-      th.setAttribute("id", col[i])
+      th.setAttribute("id", col[i]);
+      th.setAttribute("class","clickable")
       th.innerHTML = col[i];
-      userMetaData.push({sortMode: null});
       th.addEventListener("click", function (e) {
+        
         // trier
         if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
-          function SortByID(x: any, y:any) {
-            return x[col[i]] - y[col[i]]; 
-          }
-          users.sort(SortByID)
-          userMetaData[i].sortMode = "ASC"
+          users.sort((x: any, y:any) => {
+            console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
+            if (x[col[i]] > y[col[i]]){
+              return 1;
+            } else if(x[col[i]] < y[col[i]]){
+              return -1;
+            }
+            return 0;
+          });
+          userMetaData[i].sortMode = "ASC";
         }else{
-          function Inverse_SortByID(x: any, y:any) {
-            return  y[col[i]] - x[col[i]]; 
-          }
-          users.sort(Inverse_SortByID)
-          userMetaData[i].sortMode = "DESC"
+          
+          users.sort((x: any, y:any) => {
+            console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
+            if (x[col[i]] > y[col[i]]){
+              return -1;
+            } else if(x[col[i]] < y[col[i]]){
+              return 1;
+            }
+            return 0;
+          });
+          userMetaData[i].sortMode = "DESC";
         }
-        
-        // reapeler la fonction pour render le tableau
-        
         create_the_table_from_json();
+        console.log(userMetaData);
       });
       tr.appendChild(th);
   }
