@@ -86,3 +86,5 @@ function create_the_table_from_json() {
         divContainer.appendChild(table);
     }
 }
+
+create_the_table_from_json()

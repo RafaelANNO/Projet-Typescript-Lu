@@ -1,4 +1,3 @@
-// data :folder
 let users : any[] = [
   {id : "27", name: "1", category: "feref", quantity: 5,},
   {id : "1T", name: "aaaaaadd", category: "adadffeazd", quantity: 0},
@@ -22,9 +21,6 @@ col2.map(function (item:any) {
 })
 
 function create_the_table_from_json() {
-
-  // EXTRACT VALUE FOR HTML HEADER. 
-  // ('Book ID', 'Book Name', 'Category' and 'Price')
   let col : string[] = [];
   for (let i = 0; i < users.length; i++) {
       for (let key in users[i]) {
@@ -34,22 +30,16 @@ function create_the_table_from_json() {
       }
   }
 
-  // CREATE DYNAMIC TABLE.
   let table = document.createElement("table");
   table.setAttribute("class", "main_table")
-
-  // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
-  let tr = table.insertRow(-1);                   // TABLE ROW.
+  let tr = table.insertRow(-1);
 
   for (let i = 0; i < col.length; i++) {
-      let th = document.createElement("th");      // TABLE HEADER.
+      let th = document.createElement("th");
       th.setAttribute("id", col[i]);
       th.setAttribute("class","clickable")
       th.innerHTML = col[i];
       th.addEventListener("click", function (e) {
-        
-        // trier
         if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
           users.sort((x: any, y:any) => {
             console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
@@ -79,8 +69,7 @@ function create_the_table_from_json() {
       });
       tr.appendChild(th);
   }
-
-  // ADD JSON DATA TO THE TABLE AS ROWS.
+  
   for (let i = 0; i < users.length; i++) {
 
       tr = table.insertRow(-1);
@@ -96,7 +85,6 @@ function create_the_table_from_json() {
       }
   }
 
-  // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
   let divContainer = document.getElementById("showData");
   if (divContainer) {
     divContainer.innerHTML = "";
