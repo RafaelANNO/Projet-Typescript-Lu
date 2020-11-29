@@ -1,12 +1,13 @@
 "use strict";
 let users = [
-    { id: "27", name: "1", category: "feref", quantity: 5 },
+    { id: "27", name: "1", category: "feref", quantity: 5, },
     { id: "1T", name: "aaaaaadd", category: "adadffeazd", quantity: 0 },
     { id: "27", name: "adazgfzd", category: "feref", quantity: 5 },
     { id: "1T", name: "adazdazd", category: "adadffeazd", quantity: 0 },
     { id: "27", name: "adzefzfz", category: "feref", quantity: 5 },
     { id: "1T", name: "ngngnvvv", category: "adadffeazd", quantity: 0 }
 ];
+let userMetaData = [];
 function create_the_table_from_json() {
     let col = [];
     for (let i = 0; i < users.length; i++) {
@@ -21,11 +22,22 @@ function create_the_table_from_json() {
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th");
         th.innerHTML = col[i];
+        userMetaData.push({ sortMode: null });
         th.addEventListener("click", function (e) {
-            function SortByID(x, y) {
-                return x[col[i]] - y[col[i]];
+            if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
+                function SortByID(x, y) {
+                    return x[col[i]] - y[col[i]];
+                }
+                users.sort(SortByID);
+                userMetaData[i].sortMode = "ASC";
             }
-            users.sort(SortByID);
+            else {
+                function Inverse_SortByID(x, y) {
+                    return y[col[i]] - x[col[i]];
+                }
+                users.sort(Inverse_SortByID);
+                userMetaData[i].sortMode = "DESC";
+            }
             create_the_table_from_json();
         });
         tr.appendChild(th);
