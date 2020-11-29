@@ -32,6 +32,7 @@ function create_the_table_from_json() {
 
   for (let i = 0; i < col.length; i++) {
       let th = document.createElement("th");      // TABLE HEADER.
+      th.setAttribute("id", col[i])
       th.innerHTML = col[i];
       userMetaData.push({sortMode: null});
       th.addEventListener("click", function (e) {
@@ -53,7 +54,7 @@ function create_the_table_from_json() {
         // reapeler la fonction pour render le tableau
         
         create_the_table_from_json();
-      })
+      });
       tr.appendChild(th);
   }
 

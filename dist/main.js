@@ -21,6 +21,7 @@ function create_the_table_from_json() {
     let tr = table.insertRow(-1);
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th");
+        th.setAttribute("id", col[i]);
         th.innerHTML = col[i];
         userMetaData.push({ sortMode: null });
         th.addEventListener("click", function (e) {
