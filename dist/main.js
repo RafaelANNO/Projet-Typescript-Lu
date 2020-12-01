@@ -30,13 +30,14 @@ function create_the_table_from_json() {
     }
     let table = document.createElement("table");
     table.setAttribute("class", "main_table");
+    table.setAttribute("id", "customers");
     let tr = table.insertRow(-1);
     for (let i = 0; i < col.length; i++) {
         let th = document.createElement("th");
         th.setAttribute("id", col[i]);
         th.setAttribute("class", "clickable");
         th.innerHTML = col[i];
-        th.addEventListener("click", function (e) {
+        th.addEventListener("click", function () {
             if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
                 users.sort((x, y) => {
                     console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
@@ -86,5 +87,4 @@ function create_the_table_from_json() {
         divContainer.appendChild(table);
     }
 }
-
-create_the_table_from_json()
+create_the_table_from_json();
