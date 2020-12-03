@@ -1,6 +1,6 @@
 let users : any[] = [
   {id : "27", name: "1", category: "feref", quantity: 5,},
-  {id : "1T", name: "aaaaaadd", category: "adadffeazd", quantity: 0},
+  {id : "1T",  category: "adadffeazd", quantity: 0,namejhkjhkjhk: "aaaaaadd"},
   {id : "27", name: "adazgfzd", category: "feref",      quantity: 5},
   {id : "1T", name: "adazdazd", category: "adadffeazd", quantity: 0},
   {id : "27", name: "adzefzfz", category: "feref",      quantity: 5},
@@ -16,7 +16,7 @@ for (let i = 0; i < users.length; i++) {
         }
     }
 }
-col2.map(function (item:any) {
+col2.map(function () {
   userMetaData.push({sortMode: null})
 })
 
@@ -48,6 +48,10 @@ function create_the_table_from_json() {
               return 1;
             } else if(x[col[i]] < y[col[i]]){
               return -1;
+            }else if (x[col[i]] == undefined && y[col[i]] != undefined) {
+              return 1;
+            }else if (x[col[i]] != undefined && y[col[i]] == undefined) {
+              return -1
             }
             return 0;
           });
@@ -60,6 +64,12 @@ function create_the_table_from_json() {
               return -1;
             } else if(x[col[i]] < y[col[i]]){
               return 1;
+            }else if (y[col[i]] == undefined) {
+              return -1;
+            }else if (x[col[i]] == undefined && y[col[i]] != undefined) {
+              return 1;
+            }else if (x[col[i]] != undefined && y[col[i]] == undefined) {
+              return -1
             }
             return 0;
           });
