@@ -1,6 +1,6 @@
 let users : any[] = [
   {id : "27", name: "1", category: "feref", quantity: 5,},
-  {id : "1T",  category: "adadffeazd", quantity: 0,namejhkjhkjhk: "aaaaaadd"},
+  {id : "1T",  category: "adadffeazd", quantity: 0},
   {id : "27", name: "adazgfzd", category: "feref",      quantity: 5},
   {id : "1T", name: "adazdazd", category: "adadffeazd", quantity: 0},
   {id : "27", name: "adzefzfz", category: "feref",      quantity: 5},

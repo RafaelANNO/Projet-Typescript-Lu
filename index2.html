@@ -11,9 +11,8 @@
           <td id="leftside_table">
           </td>
           <td>
-             <input type="BUTTON" value="->" onclick="addIt();"></input>
-             <br />
-             <input type="BUTTON" value="<-" onclick="delIt();"></input>
+            <input type="BUTTON" value="<-" onclick="delIt();"></input>
+            <input type="BUTTON" value="->" onclick="addIt();"></input>
           </td>
           <td id="rightside_table">
           </td>
@@ -70,40 +69,22 @@
     all_option.map(function (option, index) {
       document.getElementById("SelectList").append(new Option(option.text, index));
     });
-
-
-
-    // Initialise - invoked on load
-    function initIt() {
-      var selectList = document.getElementById("SelectList");
-      var selectOptions = selectList.options;
-      var selectIndex = selectList.selectedIndex;
-      
-      var pickList = document.getElementById("PickList");
-      var pickOptions = pickList.options;
-      pickOptions[0] = null;  // Remove initial entry from picklist (was only used to set default width)
-      if (!(selectIndex > -1)) {
-        selectOptions[0].selected = true;  // Set first selected on load
-        selectOptions[0].defaultSelected = true;  // In case of reset/reload
-      }
-      selectList.focus();  // Set focus on the selectlist
-    }
     
     // Adds a selected item into the picklist
     function addIt() {
-      var selectList = document.getElementById("SelectList");
-      var selectIndex = selectList.selectedIndex;
-      var selectOptions = selectList.options;
-      var pickList = document.getElementById("PickList");
-      var pickOptions = pickList.options;
-      var pickOLength = pickOptions.length;
+      let selectList = document.getElementById("SelectList");
+      let selectIndex = select_leftside.selectedIndex;
+      let selectOptions = select_leftside.options;
+      let pickList = document.getElementById("PickList");
+      let pickOptions = select_rightside.options;
+      let pickOLength = pickOptions.length;
       // An item must be selected
-      while (selectIndex > -1) {
-        pickOptions[pickOLength] = new Option(selectList[selectIndex].text);
+      while (select_leftside.selectedIndex > -1) {
+        pickOptions[pickOLength] = new Option(select_leftside[selectIndex].text);
         pickOptions[pickOLength].value = selectList[selectIndex].value;
-          selectOptions[selectIndex] = null;
-          var tempText;
-          var tempValue;
+          selectOptions[select_leftside.selectedIndex] = null;
+          let tempText;
+          let tempValue;
           // Sort the pick list
           while (pickOLength > 0 && pickOptions[pickOLength].value < pickOptions[pickOLength-1].value) {
             tempText = pickOptions[pickOLength - 1].text;
@@ -121,18 +102,18 @@
     
     // Deletes an item from the picklist
     function delIt() {
-      var selectList = document.getElementById("SelectList");
-      var selectOptions = selectList.options;
-      var selectOLength = selectOptions.length;
-      var pickList = document.getElementById("PickList");
-      var pickIndex = pickList.selectedIndex;
-      var pickOptions = pickList.options;
+      let selectList = document.getElementById("SelectList");
+      let selectOptions = selectList.options;
+      let selectOLength = selectOptions.length;
+      let pickList = document.getElementById("PickList");
+      let pickIndex = select_rightside.selectedIndex;
+      let pickOptions = select_rightside.options;
       while (pickIndex > -1) {
-          selectOptions[selectOLength] = new Option(pickList[pickIndex].text);
-          selectOptions[selectOLength].value = pickList[pickIndex].value;
+          selectOptions[selectOLength] = new Option(select_rightside[pickIndex].text);
+          selectOptions[selectOLength].value = select_rightside[pickIndex].value;
         pickOptions[pickIndex] = null;
-          var tempText;
-          var tempValue;
+        let tempText;
+        let tempValue;
           // Re-sort the select list
           while (selectOLength > 0 && selectOptions[selectOLength].value < selectOptions[selectOLength - 1].value) {
             tempText = selectOptions[selectOLength - 1].text;
@@ -143,24 +124,9 @@
             selectOptions[selectOLength].value = tempValue;
             selectOLength = selectOLength - 1;
           }
-        pickIndex = pickList.selectedIndex;
+        pickIndex = select_rightside.selectedIndex;
         selectOLength = selectOptions.length;
       }
-    }
-    
-    // Selection - invoked on submit
-    function selIt(btn) {
-      var pickList = document.getElementById("PickList");
-      var pickOptions = pickList.options;
-      var pickOLength = pickOptions.length;
-      if (pickOLength < 1) {
-        alert("No Selections in the Picklist\nPlease Select using the [->] button");
-        return false;
-      }
-      for (var i = 0; i < pickOLength; i++) {
-        pickOptions[i].selected = true;
-      }
-      return true;
     }
     
     //-->
