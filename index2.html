@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="./assets/css/main2.css">
 </head>
 <body>
-    
     <table>
        <tr>
           <td id="leftside_table">
@@ -24,113 +23,135 @@
     </table>
   <script LANGUAGE="JavaScript">
     let all_option = [{
-      text: "Bambou Watch",
+      text: "Bambou 1",
       stock: "instock",
       price: 72,
       tag: "Fitness",
-      side: "left"
+      image_src: "./assets/images/product_1.jpg"
+    },{
+      text: "Bambou 2",
+      stock: "instock",
+      price: 56,
+      tag: "Fitness",
+      image_src: "./assets/images/product_2.jpg"
+    },{
+      text: "Bambou 3",
+      stock: "instock",
+      price: 69,
+      tag: "Fitness",
+      image_src: "./assets/images/product_3.jpg"
     }]
 
+    let all_option_right = []
+
+    
     let leftside_table = document.getElementById("leftside_table")
     let select_leftside = document.createElement("select");
     select_leftside.setAttribute("id", "SelectList");
     select_leftside.setAttribute("multiple", "multiple");
-    select_leftside.setAttribute("style", "width: 200px; height: 250px");
-    leftside_table.append(select_leftside)
+    select_leftside.setAttribute("style", "width: 400px; height: 250px");
+    leftside_table.append(select_leftside);
 
     let rightside_table = document.getElementById("rightside_table")
     let select_rightside = document.createElement("select");
     select_rightside.setAttribute("id", "PickList");
     select_rightside.setAttribute("multiple", "multiple");
-    select_rightside.setAttribute("style", "width: 200px; height: 250px");
-    rightside_table.append(select_rightside)
+    select_rightside.setAttribute("style", "width: 400px; height: 250px");
+    rightside_table.append(select_rightside);
+
+    initiateDisplay()
+
+    function initiateDisplay(){
+      select_leftside.options.length = 0;
+      select_rightside.options.length = 0;
+
+      all_option.map(function (option, index) {
+        let item = new Option("", index);
+        item.setAttribute("class", "the_option_of_each_product");
+
+        
+        let image = document.createElement("img");
+        image.setAttribute("src", option.image_src);
+        
+        // Creer la div
+        let divContainer = document.createElement("div");
+        divContainer.setAttribute("class", "product_item_div");
+
+        // Creer la span
+        let span1 = document.createElement("span");
+        span1.setAttribute("class", "text_of_the_product_span");
+        span1.innerHTML = option.text;
+
+        let span2 = document.createElement("span");
+        span2.setAttribute("class", "tag_of_the_product_span");
+        span2.innerHTML = option.tag;
+
+        let span3 = document.createElement("span");
+        span3.setAttribute("class", "stock_status_of_the_product_span");
+        span3.innerHTML = option.stock;
 
 
-    
+        // Les associations de composant
+        divContainer.append(span1);
+        divContainer.append(span2);
+        divContainer.append(span3);
+        divContainer.append(image);
+        item.append(divContainer);
+        document.getElementById("SelectList").append(item);
+      });
 
-    all_option.map(function (option, index) {
-      let item = new Option("", index);
-      item.setAttribute("class", "the_option_of_each_product");
+      all_option_right.map(function (option, index) {
+        let item = new Option("", index);
+        item.setAttribute("class", "the_option_of_each_product");
 
-      // Creer la div
-      let divContainer = document.createElement("div");
-      divContainer.setAttribute("class", "product_item_div");
+        // Creer la div
+        let divContainer = document.createElement("div");
+        divContainer.setAttribute("class", "product_item_div");
 
-      // Creer la span
-      let span1 = document.createElement("span");
-      span1.setAttribute("class", "text_of_the_product_span");
-      span1.innerHTML = option.text;
+        // Creer la span
+        let span1 = document.createElement("span");
+        span1.setAttribute("class", "text_of_the_product_span");
+        span1.innerHTML = option.text;
 
-      let span2 = document.createElement("span");
-      span2.setAttribute("class", "tag_of_the_product_span");
-      span2.innerHTML = option.tag;
+        let span2 = document.createElement("span");
+        span2.setAttribute("class", "tag_of_the_product_span");
+        span2.innerHTML = option.tag;
 
-      let span3 = document.createElement("span");
-      span3.setAttribute("class", "stock_status_of_the_product_span");
-      span3.innerHTML = option.stock;
+        let span3 = document.createElement("span");
+        span3.setAttribute("class", "stock_status_of_the_product_span");
+        span3.innerHTML = option.stock;
 
 
-      // Les associations de composant
-      divContainer.append(span1);
-      divContainer.append(span2);
-      divContainer.append(span3);
-      item.append(divContainer);
-      document.getElementById("SelectList").append(item);
-    });
+        // Les associations de composant
+        divContainer.append(span1);
+        divContainer.append(span2);
+        divContainer.append(span3);
+        item.append(divContainer);
+        document.getElementById("PickList").append(item);
+      });
+    }
     
     // Adds a selected item into the picklist
     function addIt() {
-      let selectIndex = select_leftside.selectedIndex;
-      let selectOptions = select_leftside.options;
-      let pickOptions = select_rightside.options;
-      let pickOLength = pickOptions.length;
-      // An item must be selected
-      while (select_leftside.selectedIndex > -1) {
-        pickOptions[pickOLength] = new Option(select_leftside[selectIndex].text);
-        pickOptions[pickOLength].value = select_leftside[selectIndex].value;
-          selectOptions[select_leftside.selectedIndex] = null;
-          let tempText;
-          let tempValue;
-          // Sort the pick list
-          while (pickOLength > 0 && pickOptions[pickOLength].value < pickOptions[pickOLength-1].value) {
-            tempText = pickOptions[pickOLength - 1].text;
-            tempValue = pickOptions[pickOLength - 1].value;
-            pickOptions[pickOLength - 1].text = pickOptions[pickOLength].text;
-            pickOptions[pickOLength - 1].value = pickOptions[pickOLength].value;
-            pickOptions[pickOLength].text = tempText;
-            pickOptions[pickOLength].value = tempValue;
-            pickOLength = pickOLength - 1;
-          }
-        selectIndex = select_leftside.selectedIndex;
-        pickOLength = pickOptions.length;
+      console.log('all_option :>> ', select_leftside.selectedIndex);
+      if (select_leftside.selectedIndex !== -1 && select_leftside.selectedIndex !== undefined) {
+        all_option_right.push(all_option[select_leftside.selectedIndex]);
+        all_option.splice(select_leftside.selectedIndex, 1);
+        
+        initiateDisplay()
       }
+      console.log('all_option :>> ', all_option);
+      console.log('all_option_right :>> ', all_option_right);
     }
     
     // Deletes an item from the picklist
     function delIt() {
-      let selectOptions = select_leftside.options;
-      let selectOLength = selectOptions.length;
-      let pickIndex = select_rightside.selectedIndex;
-      let pickOptions = select_rightside.options;
-      while (pickIndex > -1) {
-          selectOptions[selectOLength] = new Option(select_rightside[pickIndex].text);
-          selectOptions[selectOLength].value = select_rightside[pickIndex].value;
-        pickOptions[pickIndex] = null;
-        let tempText;
-        let tempValue;
-          // Re-sort the select list
-          while (selectOLength > 0 && selectOptions[selectOLength].value < selectOptions[selectOLength - 1].value) {
-            tempText = selectOptions[selectOLength - 1].text;
-            tempValue = selectOptions[selectOLength - 1].value;
-            selectOptions[selectOLength - 1].text = selectOptions[selectOLength].text;
-            selectOptions[selectOLength - 1].value = selectOptions[selectOLength].value;
-            selectOptions[selectOLength].text = tempText;
-            selectOptions[selectOLength].value = tempValue;
-            selectOLength = selectOLength - 1;
-          }
-        pickIndex = select_rightside.selectedIndex;
-        selectOLength = selectOptions.length;
+      if (select_rightside.selectedIndex !== -1 && select_rightside.selectedIndex !== undefined) {
+        all_option.push(all_option_right[select_rightside.selectedIndex]);
+        all_option_right.splice(select_rightside.selectedIndex, 1);
+        initiateDisplay()
       }
+      console.log('all_option_right :>> ', all_option_right);
     }
   </script>
 </body>
