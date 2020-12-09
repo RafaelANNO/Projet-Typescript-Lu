@@ -129,3 +129,69 @@ let all_option = [{
     }
     console.log('all_option_right :>> ', all_option_right);
   }
+
+
+  function up_item_select_leftside() {
+    console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
+    if (select_leftside.selectedIndex !== - 1) {
+      if (select_leftside.selectedIndex > 0) {
+        swap(all_option, select_leftside.selectedIndex, select_leftside.selectedIndex - 1);
+        initiateDisplay();
+      }else{
+        alert("Le produit ne peux pas monté plus haut");
+      }
+    }else{
+      alert("Aucun élément choisit");
+    }
+  }
+
+  function down_item_select_leftside() {
+    console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
+    console.log('select_leftside.length :>> ', select_leftside.length);
+    if (select_leftside.selectedIndex !== - 1) {
+      if (select_leftside.length - 1 !== select_leftside.selectedIndex) {
+        swap(all_option, select_leftside.selectedIndex, select_leftside.selectedIndex + 1);
+        initiateDisplay();
+      }else{
+        alert("Le produit ne peux pas descendre plus bas");
+      }
+    }else{
+      alert("Aucun élément choisit");
+    }
+  }
+
+  function up_item_select_rightside() {
+    console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
+    if (select_rightside.selectedIndex !== - 1) {
+      if (select_rightside.selectedIndex > 0) {
+        swap(all_option_right, select_rightside.selectedIndex, select_rightside.selectedIndex - 1);
+        initiateDisplay();
+      }else{
+        alert("Le produit ne peux pas monté plus haut");
+      }
+    }else{
+      alert("Aucun élément choisit");
+    }
+  }
+
+  function down_item_select_rightside() {
+    console.log('select_rightside.selectedIndex :>> ', select_rightside.selectedIndex);
+    console.log('select_rightside.length :>> ', select_rightside.length);
+    if (select_rightside.selectedIndex !== - 1) {
+      if (select_rightside.length - 1 !== select_rightside.selectedIndex) {
+        swap(all_option_right, select_rightside.selectedIndex, select_rightside.selectedIndex + 1);
+        initiateDisplay();
+      }else{
+        alert("Le produit ne peux pas descendre plus bas");
+      }
+    }else{
+      alert("Aucun élément choisit");
+    }
+  }
+
+  function swap(input: { [x: string]: any; }, index_A: string | number, index_B: string | number) {
+    let temp = input[index_A];
+
+    input[index_A] = input[index_B];
+    input[index_B] = temp;
+  }
