@@ -1,3 +1,4 @@
+// cette variable est laissé en tableau de type any pour pouvoir etre modifié n'importe comment
 let users : any[] = [
   {id : "27", name: "1", category: "feref", quantity: 5,},
   {id : "1T",  category: "adadffeazd", quantity: 0},

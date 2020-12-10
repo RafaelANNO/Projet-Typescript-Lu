@@ -1,4 +1,10 @@
-let all_option_left = [{
+let all_option_left :{
+  text: string;
+  stock: string;
+  price: number;
+  tag: string;
+  image_src: string;
+}[]= [{
   text: "Bambou 1",
   stock: "instock",
   price: 72,
@@ -18,7 +24,29 @@ let all_option_left = [{
   image_src: "./assets/images/product_3.jpg"
 }]
 
-let all_option_right :any[] = []
+let all_option_right :{
+  text: string;
+  stock: string;
+  price: number;
+  tag: string;
+  image_src: string;
+}[] = [];
+
+let before_search_all_option_left :{
+  text: string;
+  stock: string;
+  price: number;
+  tag: string;
+  image_src: string;
+}[] = all_option_left;
+
+let before_search_all_option_right :{
+  text: string;
+  stock: string;
+  price: number;
+  tag: string;
+  image_src: string;
+}[] = all_option_right;
 
 
 let leftside_table = document.getElementById("leftside_table")
@@ -107,9 +135,13 @@ function initiateDisplay(){
   });
 }
 
-// Adds a selected item into the picklist
+/**
+ * Adds a selected item into the picklist
+ */
 function addIt() {
   console.log('all_option_left :>> ', select_leftside.selectedIndex);
+  all_option_right = before_search_all_option_right;
+  all_option_left = before_search_all_option_left;
   if (select_leftside.selectedIndex !== -1 && select_leftside.selectedIndex !== undefined) {
     all_option_right.push(all_option_left[select_leftside.selectedIndex]);
     all_option_left.splice(select_leftside.selectedIndex, 1);
@@ -120,8 +152,12 @@ function addIt() {
   console.log('all_option_right :>> ', all_option_right);
 }
 
-// Deletes an item from the picklist
+/**
+ * Delete an item from the picklist
+ */
 function delIt() {
+  all_option_right = before_search_all_option_right;
+  all_option_left = before_search_all_option_left;
   if (select_rightside.selectedIndex !== -1 && select_rightside.selectedIndex !== undefined) {
     all_option_left.push(all_option_right[select_rightside.selectedIndex]);
     all_option_right.splice(select_rightside.selectedIndex, 1);
@@ -189,27 +225,41 @@ function down_item_select_rightside() {
   }
 }
 
-function swap(input: { [x: string]: any; }, index_A: string | number, index_B: string | number) {
+function swap(input: { [x: string]: any; }, index_A: number, index_B: number) {
   let temp = input[index_A];
-
   input[index_A] = input[index_B];
   input[index_B] = temp;
 }
 
+
+
 function search_leftside() {
-  console.log('document.get :>> ', document.getElementById("leftside_table_search_bar"));
-  console.log('search_bar.innerHTML :>> ', document.getElementById("leftside_table_search_bar"));
-  const search : String = "Bambou 3";
-  
-  all_option_left = all_option_left.filter(option => option.text === search);
+  console.log('search_bar.innerHTML :>> ', (<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value);
+  if ((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value === "") {
+    all_option_left = before_search_all_option_left;
+  }else{
+    all_option_left = before_search_all_option_left.filter(option => 
+      option.text.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+      option.stock.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+      option.price.toString().includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+      option.tag.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value)
+    );
+
+  }
   initiateDisplay()
 }
 
 function search_rightside() {
-  console.log('document.get :>> ', document.getElementById("leftside_table_search_bar"));
-  console.log('search_bar.innerHTML :>> ', document.getElementById("leftside_table_search_bar"));
-  const search : String = "Bambou 3";
-  
-  all_option_right = all_option_right.filter(option => option.text === search);
+  console.log('search_bar.innerHTML :>> ', (<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value);
+  if ((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value === "") {
+    all_option_right = before_search_all_option_right;
+  }else{
+    all_option_right = before_search_all_option_right.filter(option => 
+      option.text.includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value) ||
+      option.stock.includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value) ||
+      option.price.toString().includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value) ||
+      option.tag.includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value)
+    );
+  }
   initiateDisplay()
 }
