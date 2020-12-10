@@ -4,7 +4,7 @@ let all_option_left :{
   price: number;
   tag: string;
   image_src: string;
-}[]= [{
+}[] = [{
   text: "Bambou 1",
   stock: "instock",
   price: 72,
@@ -72,6 +72,7 @@ function initiateDisplay(){
   all_option_left.map(function (option, index) {
     let item = new Option("", index.toString());
     item.setAttribute("class", "the_option_of_each_product");
+    item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;")
 
     
     let image = document.createElement("img");
@@ -84,21 +85,11 @@ function initiateDisplay(){
     // Creer la span
     let span1 = document.createElement("span");
     span1.setAttribute("class", "text_of_the_product_span");
-    span1.innerHTML = option.text;
-
-    let span2 = document.createElement("span");
-    span2.setAttribute("class", "tag_of_the_product_span");
-    span2.innerHTML = option.tag;
-
-    let span3 = document.createElement("span");
-    span3.setAttribute("class", "stock_status_of_the_product_span");
-    span3.innerHTML = option.stock;
+    span1.innerHTML = "titre : " + option.text + ", tag : " + option.tag + ", status : " + option.stock;
 
 
     // Les associations de composant
     divContainer.append(span1);
-    divContainer.append(span2);
-    divContainer.append(span3);
     divContainer.append(image);
     item.append(divContainer);
     select_leftside.append(item);
@@ -107,29 +98,22 @@ function initiateDisplay(){
   all_option_right.map(function (option, index) {
     let item = new Option("", index.toString());
     item.setAttribute("class", "the_option_of_each_product");
+    item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;")
+
 
     // Creer la div
     let divContainer = document.createElement("div");
     divContainer.setAttribute("class", "product_item_div");
+    
 
     // Creer la span
     let span1 = document.createElement("span");
     span1.setAttribute("class", "text_of_the_product_span");
-    span1.innerHTML = option.text;
-
-    let span2 = document.createElement("span");
-    span2.setAttribute("class", "tag_of_the_product_span");
-    span2.innerHTML = option.tag;
-
-    let span3 = document.createElement("span");
-    span3.setAttribute("class", "stock_status_of_the_product_span");
-    span3.innerHTML = option.stock;
+    span1.innerHTML = "titre : " + option.text + ", tag : " + option.tag + ", status : " + option.stock;
 
 
     // Les associations de composant
     divContainer.append(span1);
-    divContainer.append(span2);
-    divContainer.append(span3);
     item.append(divContainer);
     select_rightside.append(item);
   });
@@ -148,8 +132,6 @@ function addIt() {
     
     initiateDisplay()
   }
-  console.log('all_option_left :>> ', all_option_left);
-  console.log('all_option_right :>> ', all_option_right);
 }
 
 /**
@@ -163,7 +145,6 @@ function delIt() {
     all_option_right.splice(select_rightside.selectedIndex, 1);
     initiateDisplay()
   }
-  console.log('all_option_right :>> ', all_option_right);
 }
 
 
