@@ -48,6 +48,7 @@ let before_search_all_option_right :{
   image_src: string;
 }[] = all_option_right;
 
+// J'ai tenter de faire des import pour du code propre mais je n'y arrive pas
 
 let leftside_table = document.getElementById("leftside_table")
 let select_leftside = document.createElement("select");
@@ -92,6 +93,10 @@ function initiateDisplay(){
     divContainer.append(span1);
     divContainer.append(image);
     item.append(divContainer);
+    item.addEventListener('dblclick', function (e) {
+      console.log('e :>> ', e);
+      addIt();
+    });
     select_leftside.append(item);
   });
 
@@ -114,6 +119,10 @@ function initiateDisplay(){
 
     // Les associations de composant
     divContainer.append(span1);
+    item.addEventListener('dblclick', function (e) {
+      console.log('e :>> ', e);
+      delIt();
+    });
     item.append(divContainer);
     select_rightside.append(item);
   });
@@ -123,7 +132,7 @@ function initiateDisplay(){
  * Adds a selected item into the picklist
  */
 function addIt() {
-  console.log('all_option_left :>> ', select_leftside.selectedIndex);
+  console.log('all_option_left :>> ', select_leftside);
   all_option_right = before_search_all_option_right;
   all_option_left = before_search_all_option_left;
   if (select_leftside.selectedIndex !== -1 && select_leftside.selectedIndex !== undefined) {
