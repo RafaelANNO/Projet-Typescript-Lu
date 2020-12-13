@@ -221,8 +221,6 @@ function swap(input: { [x: string]: any; }, index_A: number, index_B: number) {
   input[index_B] = temp;
 }
 
-
-
 function search_leftside() {
   console.log('search_bar.innerHTML :>> ', (<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value);
   if ((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value === "") {
