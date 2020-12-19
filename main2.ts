@@ -52,7 +52,7 @@ rightside_table?.append(select_rightside);
 initiateDisplay();
 
 function initiateDisplay():Promise<Function>{
-  return new Promise(function () {
+  return new Promise(function ():void {
     select_leftside.options.length = 0;
   select_rightside.options.length = 0;
   all_option_left.map(function (option, index) {
@@ -113,7 +113,7 @@ function initiateDisplay():Promise<Function>{
  * Adds a selected item into the picklist
  */
 function addIt(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('all_option_left :>> ', select_leftside);
     all_option_right = before_search_all_option_right;
     all_option_left = before_search_all_option_left;
@@ -130,7 +130,7 @@ function addIt(): Promise<Function> {
  * Delete an item from the picklist
  */
 function delIt(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function (): void {
     all_option_right = before_search_all_option_right;
     all_option_left = before_search_all_option_left;
     if (select_rightside.selectedIndex !== -1 && select_rightside.selectedIndex !== undefined) {
@@ -142,7 +142,7 @@ function delIt(): Promise<Function> {
 }
 
 function up_item_select_leftside():Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
     if (select_leftside.selectedIndex !== - 1) {
       if (select_leftside.selectedIndex > 0) {
@@ -158,7 +158,7 @@ function up_item_select_leftside():Promise<Function> {
 }
 
 function down_item_select_leftside(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
     console.log('select_leftside.length :>> ', select_leftside.length);
     if (select_leftside.selectedIndex !== - 1) {
@@ -175,7 +175,7 @@ function down_item_select_leftside(): Promise<Function> {
 }
 
 function up_item_select_rightside(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('select_leftside.selectedIndex :>> ', select_leftside.selectedIndex);
     if (select_rightside.selectedIndex !== - 1) {
       if (select_rightside.selectedIndex > 0) {
@@ -191,7 +191,7 @@ function up_item_select_rightside(): Promise<Function> {
 }
 
 function down_item_select_rightside(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('select_rightside.selectedIndex :>> ', select_rightside.selectedIndex);
     console.log('select_rightside.length :>> ', select_rightside.length);
     if (select_rightside.selectedIndex !== - 1) {
@@ -208,7 +208,7 @@ function down_item_select_rightside(): Promise<Function> {
 }
 
 function swap(input: { [x: string]: any; }, index_A: number, index_B: number): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     let temp = input[index_A];
     input[index_A] = input[index_B];
     input[index_B] = temp;
@@ -216,7 +216,7 @@ function swap(input: { [x: string]: any; }, index_A: number, index_B: number): P
 };
 
 function search_leftside(): Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('search_bar.innerHTML :>> ', (<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value);
     if ((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value === "") {
       all_option_left = before_search_all_option_left;
@@ -243,7 +243,7 @@ function search_leftside(): Promise<Function> {
 }
 
 function search_rightside():Promise<Function> {
-  return new Promise(function () {
+  return new Promise(function ():void {
     console.log('search_bar.innerHTML :>> ', (<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value);
     if ((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value === "") {
       all_option_right = before_search_all_option_right;
@@ -254,7 +254,7 @@ function search_rightside():Promise<Function> {
         option.price.toString().includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value) ||
         option.tag.includes((<HTMLInputElement>document.getElementById("rightside_table_search_bar")).value)
       );
-    }
+    };
     initiateDisplay();
   });
 }
