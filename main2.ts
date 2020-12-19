@@ -54,58 +54,57 @@ initiateDisplay();
 function initiateDisplay():Promise<Function>{
   return new Promise(function ():void {
     select_leftside.options.length = 0;
-  select_rightside.options.length = 0;
-  all_option_left.map(function (option, index) {
-    
-    let item = new Option("", index.toString());
-    let divContainer = document.createElement("div");
-    divContainer.setAttribute("class", "product_item_div");
+    select_rightside.options.length = 0;
+    all_option_left.map(function (option, index) {
+      let item = new Option("", index.toString());
+      let divContainer = document.createElement("div");
+      divContainer.setAttribute("class", "product_item_div");
 
-    let unordered_list = document.createElement("ul");
-    cols_attributes.map(function (col_attribute:String) {
-      let span1 = document.createElement("li");
-      span1.setAttribute("class", "text_of_the_product_span");
-      if (typeof(option[col_attribute.toString()]) === "undefined") {
-        span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
-      }else{
-        // si ca commen
-        span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
-      }
-      unordered_list.append(span1);
+      let unordered_list = document.createElement("ul");
+      cols_attributes.map(function (col_attribute:String):void {
+        let span1 = document.createElement("li");
+        span1.setAttribute("class", "text_of_the_product_span");
+        if (typeof(option[col_attribute.toString()]) === "undefined") {
+          span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
+        }else{
+          // si ca commen
+          span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+        }
+        unordered_list.append(span1);
+      });
+      divContainer.append(unordered_list)
+      // Les associations de composant
+      item.append(divContainer);
+      item.addEventListener('dblclick', function ():void {
+        addIt();
+      });
+      select_leftside.append(item);
     });
-    divContainer.append(unordered_list)
-    // Les associations de composant
-    item.append(divContainer);
-    item.addEventListener('dblclick', function ():void {
-      addIt();
-    });
-    select_leftside.append(item);
-  });
 
-  all_option_right.map(function (option, index) {
-    let item = new Option("", index.toString());
-    let divContainer = document.createElement("div");
-    divContainer.setAttribute("class", "product_item_div");
+    all_option_right.map(function (option, index): void {
+      let item = new Option("", index.toString());
+      let divContainer = document.createElement("div");
+      divContainer.setAttribute("class", "product_item_div");
 
-    let unordered_list = document.createElement("ul");
-    cols_attributes.map(function (col_attribute:String) {
-      let span1 = document.createElement("li");
-      span1.setAttribute("class", "text_of_the_product_span");
-      if (typeof(option[col_attribute.toString()]) === "undefined") {
-        span1.innerHTML = col_attribute.toString() + " : " + "non renseigné"
-      }else{
-        span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()]
-      }
-      unordered_list.append(span1);
+      let unordered_list = document.createElement("ul");
+      cols_attributes.map(function (col_attribute:String):void {
+        let span1 = document.createElement("li");
+        span1.setAttribute("class", "text_of_the_product_span");
+        if (typeof(option[col_attribute.toString()]) === "undefined") {
+          span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
+        }else{
+          span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+        }
+        unordered_list.append(span1);
+      });
+      divContainer.append(unordered_list)
+      item.addEventListener('dblclick', function (e) {
+        console.log('e :>> ', e);
+        delIt();
+      });
+      item.append(divContainer);
+      select_rightside.append(item);
     });
-    divContainer.append(unordered_list)
-    item.addEventListener('dblclick', function (e) {
-      console.log('e :>> ', e);
-      delIt();
-    });
-    item.append(divContainer);
-    select_rightside.append(item);
-  });
   });
   
 }
