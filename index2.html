@@ -1,36 +1,32 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Projet</title>
-  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-  <link rel="stylesheet" href="./assets/css/main2.css">
-</head>
-<body>
+  <head>
+    <title>Projet</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="./assets/css/main2.css">
+  </head>
+  <body>
     <table>
-       <tr>
+        <tr>
           <td id="leftside_table">
             <input type="text" id="leftside_table_search_bar">
-            <input type="button" value="rechercher" onclick="search_leftside()">
+            <input type="button" value="rechercher" onclick="search_leftside();">
             <input type="button" value="faire monter l'article" onclick="up_item_select_leftside();"></input>
             <input type="button" value="faire descendre l'article" onclick="down_item_select_leftside();"></input>
           </td>
           <td>
-            <input type="button" value="<-" onclick="delIt();"></input>
-            <input type="button" value="->" onclick="addIt();"></input>
+            <input type="button" value="<- transferer vers la gauche" onclick="delIt();"></input>
+            <input type="button" value="transferer vers la droite ->" onclick="addIt();"></input>
           </td>
           <td id="rightside_table">
             <input type="text" id="rightside_table_search_bar">
-            <input type="button" value="rechercher" onclick="search_rightside()">
+            <input type="button" value="rechercher" onclick="search_rightside();">
             <input type="button" value="faire monter l'article" onclick="up_item_select_rightside();"></input>
             <input type="button" value="faire descendre l'article" onclick="down_item_select_rightside();"></input>
           </td>
-       </tr>
-       <tr>
-         
-       </tr>
+        </tr>
     </table>
     <script src="./dist/main.js"></script>
-</body>
+  </body>
 </html>
-

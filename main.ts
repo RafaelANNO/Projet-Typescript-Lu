@@ -1,6 +1,6 @@
 // cette variable est laissé en tableau de type any pour pouvoir etre modifié n'importe comment
 let users : any[] = [
-  {id : "27", name: "1", category: "feref", quantity: 5,},
+  {id : "27", name: "1", category: "feref", quantity: 5},
   {id : "1T",  category: "adadffeazd", quantity: 0},
   {id : "27", name: "adazgfzd", category: "feref",      quantity: 5},
   {id : "1T", name: "adazdazd", category: "adadffeazd", quantity: 2},
@@ -18,10 +18,10 @@ for (let i = 0; i < users.length; i++) {
     }
 }
 col2.map(function () {
-  userMetaData.push({sortMode: null})
-})
+  userMetaData.push({sortMode: "ASC"});
+});
 
-function create_the_table_from_json() {
+function create_the_table_from_json():Promise<Function> {
   return new Promise(function () {
     let col : string[] = [];
     for (let i = 0; i < users.length; i++) {
@@ -104,7 +104,6 @@ function create_the_table_from_json() {
       divContainer.appendChild(table);
     }
   })
-  
 }
 
 create_the_table_from_json()
