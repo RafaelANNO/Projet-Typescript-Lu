@@ -1,13 +1,8 @@
-let all_option_left :{
-  text: string;
-  stock: string;
-  price: number;
-  tag: string;
-  image_src: string;
-}[] = [{
+let all_option_left :any[] = [{
   text: "Bambou 1",
   stock: "instock",
   price: 72,
+  test_genericité: "testgenericité !!!",
   tag: "Fitness",
   image_src: "./assets/images/product_1.jpg"
 },{
@@ -24,44 +19,34 @@ let all_option_left :{
   image_src: "./assets/images/product_3.jpg"
 }]
 
-let all_option_right :{
-  text: string;
-  stock: string;
-  price: number;
-  tag: string;
-  image_src: string;
-}[] = [];
+let all_option_right :any[] = [];
 
-let before_search_all_option_left :{
-  text: string;
-  stock: string;
-  price: number;
-  tag: string;
-  image_src: string;
-}[] = all_option_left;
+let before_search_all_option_left :any[] = all_option_left;
 
-let before_search_all_option_right :{
-  text: string;
-  stock: string;
-  price: number;
-  tag: string;
-  image_src: string;
-}[] = all_option_right;
+let before_search_all_option_right :any[] = all_option_right;
 
+let cols_attributes : string[] = [];
+  for (let i = 0; i < all_option_left.length; i++) {
+    for (let key in all_option_left[i]) {
+        if (cols_attributes.indexOf(key) === -1) {
+          cols_attributes.push(key);
+        }
+    }
+  }
 // J'ai tenter de faire des import pour du code propre mais je n'y arrive pas
 
 let leftside_table = document.getElementById("leftside_table")
 let select_leftside = document.createElement("select");
 select_leftside.setAttribute("id", "SelectList");
 select_leftside.setAttribute("multiple", "multiple");
-select_leftside.setAttribute("style", "width: 400px; height: 250px");
+select_leftside.setAttribute("style", "width: 600px; height: 250px");
 leftside_table?.append(select_leftside);
 
 let rightside_table = document.getElementById("rightside_table")
 let select_rightside = document.createElement("select");
 select_rightside.setAttribute("id", "PickList");
 select_rightside.setAttribute("multiple", "multiple");
-select_rightside.setAttribute("style", "width: 400px; height: 250px");
+select_rightside.setAttribute("style", "width: 600px; height: 250px");
 rightside_table?.append(select_rightside);
 
 initiateDisplay();
@@ -70,28 +55,30 @@ function initiateDisplay(){
   select_leftside.options.length = 0;
   select_rightside.options.length = 0;
 
-  all_option_left.map(function (option, index) {
-    let item = new Option("", index.toString());
-    item.setAttribute("class", "the_option_of_each_product");
-    item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;")
 
+  
+  console.log(cols_attributes);
+
+
+  all_option_left.map(function (option, index) {
     
-    let image = document.createElement("img");
-    image.setAttribute("src", option.image_src);
-    
-    // Creer la div
+    let item = new Option("", index.toString());
     let divContainer = document.createElement("div");
     divContainer.setAttribute("class", "product_item_div");
 
-    // Creer la span
-    let span1 = document.createElement("span");
-    span1.setAttribute("class", "text_of_the_product_span");
-    span1.innerHTML = "titre : " + option.text + ", tag : " + option.tag + ", status : " + option.stock;
-
-
+    let unordered_list = document.createElement("ul");
+    cols_attributes.map(function (col_attribute:String) {
+      let span1 = document.createElement("li");
+      span1.setAttribute("class", "text_of_the_product_span");
+      if (typeof(option[col_attribute.toString()]) === "undefined") {
+        span1.innerHTML = col_attribute.toString() + " : " + "non renseigné"
+      }else{
+        span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()]
+      }
+      unordered_list.append(span1);
+    });
+    divContainer.append(unordered_list)
     // Les associations de composant
-    divContainer.append(span1);
-    divContainer.append(image);
     item.append(divContainer);
     item.addEventListener('dblclick', function (e) {
       console.log('e :>> ', e);
@@ -135,12 +122,13 @@ function addIt() {
   console.log('all_option_left :>> ', select_leftside);
   all_option_right = before_search_all_option_right;
   all_option_left = before_search_all_option_left;
-  if (select_leftside.selectedIndex !== -1 && select_leftside.selectedIndex !== undefined) {
+  console.log(all_option_left[select_leftside.selectedIndex])
+  /* if (select_leftside.selectedIndex !== -1 && select_leftside.selectedIndex !== undefined) {
     all_option_right.push(all_option_left[select_leftside.selectedIndex]);
     all_option_left.splice(select_leftside.selectedIndex, 1);
     
     initiateDisplay()
-  }
+  } */
 }
 
 /**
@@ -226,13 +214,22 @@ function search_leftside() {
   if ((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value === "") {
     all_option_left = before_search_all_option_left;
   }else{
-    all_option_left = before_search_all_option_left.filter(option => 
-      option.text.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
-      option.stock.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
-      option.price.toString().includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
-      option.tag.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value)
-    );
-
+    cols_attributes.map(function (col_attribute) {
+      all_option_left = before_search_all_option_left.filter(option => {
+        console.log(option[col_attribute.toString()]);
+        if (typeof(option[col_attribute.toString()]) !== "undefined") {
+          return option[col_attribute.toString()].toString().includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value)
+        }
+      }
+        /* option.text.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+        option.stock.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+        option.price.toString().includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) ||
+        option.tag.includes((<HTMLInputElement>document.getElementById("leftside_table_search_bar")).value) */
+        
+      );
+    })
+    
+    console.table(all_option_left);
   }
   initiateDisplay()
 }
