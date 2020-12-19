@@ -39,14 +39,14 @@ let leftside_table = document.getElementById("leftside_table")
 let select_leftside = document.createElement("select");
 select_leftside.setAttribute("id", "SelectList");
 select_leftside.setAttribute("multiple", "multiple");
-select_leftside.setAttribute("style", "width: 600px; height: 250px");
+select_leftside.setAttribute("style", "width: 600px; height: 250px; overflow: scroll;");
 leftside_table?.append(select_leftside);
 
 let rightside_table = document.getElementById("rightside_table")
 let select_rightside = document.createElement("select");
 select_rightside.setAttribute("id", "PickList");
 select_rightside.setAttribute("multiple", "multiple");
-select_rightside.setAttribute("style", "width: 600px; height: 250px");
+select_rightside.setAttribute("style", "width: 600px; height: 250px; overflow: scroll;");
 rightside_table?.append(select_rightside);
 
 initiateDisplay();
@@ -66,16 +66,17 @@ function initiateDisplay():Promise<Function>{
       let span1 = document.createElement("li");
       span1.setAttribute("class", "text_of_the_product_span");
       if (typeof(option[col_attribute.toString()]) === "undefined") {
-        span1.innerHTML = col_attribute.toString() + " : " + "non renseigné"
+        span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
       }else{
-        span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()]
+        // si ca commen
+        span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
       }
       unordered_list.append(span1);
     });
     divContainer.append(unordered_list)
     // Les associations de composant
     item.append(divContainer);
-    item.addEventListener('dblclick', function (e) {
+    item.addEventListener('dblclick', function ():void {
       addIt();
     });
     select_leftside.append(item);
