@@ -1,6 +1,6 @@
-/* .the_option_of_each_product{
+.the_option_of_each_product{
   height: 100px;
-} */
+}
 
 .product_item_div{
   flex-direction : column

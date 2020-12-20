@@ -16,7 +16,7 @@ let all_option_left :any[] = [{
   stock: "instock",
   price: 69,
   tag: "Fitness",
-  image_src: "./assets/images/product_3.jpg"
+  image_src: "https://unsplash.com/photos/ZqjNiJnzZqw"
 }]
 
 let all_option_right :any[] = [];
@@ -33,7 +33,8 @@ for (let i = 0; i < all_option_left.length; i++) {
       }
   }
 }
-
+let test_if_image_path = new RegExp(".\/(.*).(.*)")
+let test_if_image_link = new RegExp("(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})");
 // J'ai tenter de faire des import pour du code propre mais je n'y arrive pas
 let leftside_table = document.getElementById("leftside_table")
 let select_leftside = document.createElement("select");
@@ -57,6 +58,7 @@ function initiateDisplay():Promise<Function>{
     select_rightside.options.length = 0;
     all_option_left.map(function (option, index) {
       let item = new Option("", index.toString());
+
       let divContainer = document.createElement("div");
       divContainer.setAttribute("class", "product_item_div");
 
@@ -67,8 +69,12 @@ function initiateDisplay():Promise<Function>{
         if (typeof(option[col_attribute.toString()]) === "undefined") {
           span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
         }else{
-          // si ca commen
-          span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+          if (test_if_image_link.test(option[col_attribute.toString()]) || test_if_image_path.test(option[col_attribute.toString()])) {
+            item.setAttribute("class", "the_option_of_each_product");
+            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;");
+          }else{
+            span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+          }
         }
         unordered_list.append(span1);
       });
@@ -83,6 +89,8 @@ function initiateDisplay():Promise<Function>{
 
     all_option_right.map(function (option, index): void {
       let item = new Option("", index.toString());
+      
+      
       let divContainer = document.createElement("div");
       divContainer.setAttribute("class", "product_item_div");
 
@@ -93,7 +101,13 @@ function initiateDisplay():Promise<Function>{
         if (typeof(option[col_attribute.toString()]) === "undefined") {
           span1.innerHTML = col_attribute.toString() + " : " + "non renseigné   |   " 
         }else{
-          span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+          if (test_if_image_link.test(option[col_attribute.toString()]) || test_if_image_path.test(option[col_attribute.toString()])) {
+            item.setAttribute("class", "the_option_of_each_product");
+            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;");
+          }else{
+            span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
+          }
+          
         }
         unordered_list.append(span1);
       });
