@@ -38,11 +38,12 @@ function create_the_table_from_json():Promise<Function> {
     let tr = table.insertRow(-1);
 
     for (let i = 0; i < col.length; i++) {
-        let th = document.createElement("th");
-        th.setAttribute("id", col[i]);
-        th.setAttribute("class","clickable")
-        th.innerHTML = col[i];
-        th.addEventListener("click", function () {
+      let th = document.createElement("th");
+      th.setAttribute("id", col[i]);
+      th.setAttribute("class","clickable")
+      th.innerHTML = col[i];
+      th.addEventListener("click", function (): Promise<Function> {
+        return new Promise(function (): void {
           if (userMetaData[i].sortMode === "DESC" || userMetaData[i].sortMode == null) {
             users.sort((x: any, y:any) => {
               console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
@@ -59,7 +60,6 @@ function create_the_table_from_json():Promise<Function> {
             });
             userMetaData[i].sortMode = "ASC";
           }else{
-            
             users.sort((x: any, y:any) => {
               console.log(x[col[i]], y[col[i]], x[col[i]] - y[col[i]]);
               if (x[col[i]] > y[col[i]]){
@@ -76,34 +76,31 @@ function create_the_table_from_json():Promise<Function> {
               return 0;
             });
             userMetaData[i].sortMode = "DESC";
-          }
+          };
           create_the_table_from_json();
-          console.log(userMetaData);
         });
-        tr.appendChild(th);
-    }
+      });
+      tr.appendChild(th);
+    };
     
     for (let i = 0; i < users.length; i++) {
-
-        tr = table.insertRow(-1);
-
-        for (let j = 0; j < col.length; j++) {
-            let tabCell = tr.insertCell(-1);
-            if (users[i][col[j]] !== undefined) {
-              tabCell.innerHTML = users[i][col[j]];
-            }else{
-              tabCell.innerHTML = "Aucune donnée disponible"
-            }
-            
-        }
-    }
+      tr = table.insertRow(-1);
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        if (users[i][col[j]] !== undefined) {
+          tabCell.innerHTML = users[i][col[j]];
+        }else{
+          tabCell.innerHTML = "Aucune donnée disponible"
+        };
+      };
+    };
 
     let divContainer = document.getElementById("showData");
     if (divContainer) {
       divContainer.innerHTML = "";
       divContainer.appendChild(table);
-    }
-  })
+    };
+  });
 }
 
 create_the_table_from_json()

@@ -1,7 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;500&display=swap');
+
+
+body{
+  font-family: 'Work Sans';
+}
+
+#leftside_table{
+  width: 30%;
+}
+
+input, select{
+  outline: none;
+  font-family: 'Work Sans';
+  font-size: 14px;
+  color: black;
+  font-weight: 500;
+}
+
+.middle_table{
+  width: 20%;
+  text-align: center;
+  margin: 0 50%;
+}
+
+
+#rightside_table{
+  width: 30%;
+}
+
 .the_option_of_each_product{
   height: 100px;
 }
 
-.product_item_div{
-  flex-direction : column
+.the_option_of_each_product{
+  padding-top: 95px;
+}
+
+#SelectList{
+  display: block;
+}
+
+.button_action{
+  margin: 15px 0;
+}
+
+select{
+  border: 1px solid rgb(241, 241, 241);
+  border-radius: 10px;
+}
+
+select option{
+  margin: 15px 0;
+  border: 1px solid rgb(241, 241, 241);
+}
+
+select option:hover{
+  background-color: rgb(248, 248, 248);
+  transition: all 0.2s;
+}
+
+.button_action input{
+  height: 35px;
+  line-height: 35px;
+  margin: 0 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(241, 241, 241);
+  transition: all 0.2s;
+}
+
+.button_action input:hover{
+  background-color: rgb(226, 226, 226);
 }

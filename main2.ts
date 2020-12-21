@@ -16,7 +16,7 @@ let all_option_left :any[] = [{
   stock: "instock",
   price: 69,
   tag: "Fitness",
-  image_src: "https://unsplash.com/photos/ZqjNiJnzZqw"
+  image_src: "https://images.unsplash.com/photo-1608372845052-77f57c627fc1?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
 }]
 
 let all_option_right :any[] = [];
@@ -40,14 +40,14 @@ let leftside_table = document.getElementById("leftside_table")
 let select_leftside = document.createElement("select");
 select_leftside.setAttribute("id", "SelectList");
 select_leftside.setAttribute("multiple", "multiple");
-select_leftside.setAttribute("style", "width: 600px; height: 250px; overflow: scroll;");
+select_leftside.setAttribute("style", "width: 100%; height: 250px; overflow: scroll;");
 leftside_table?.append(select_leftside);
 
 let rightside_table = document.getElementById("rightside_table")
 let select_rightside = document.createElement("select");
 select_rightside.setAttribute("id", "PickList");
 select_rightside.setAttribute("multiple", "multiple");
-select_rightside.setAttribute("style", "width: 600px; height: 250px; overflow: scroll;");
+select_rightside.setAttribute("style", "width: 100%; height: 250px; overflow: scroll;");
 rightside_table?.append(select_rightside);
 
 initiateDisplay();
@@ -71,12 +71,17 @@ function initiateDisplay():Promise<Function>{
         }else{
           if (test_if_image_link.test(option[col_attribute.toString()]) || test_if_image_path.test(option[col_attribute.toString()])) {
             item.setAttribute("class", "the_option_of_each_product");
-            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;");
+            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: contain; background-repeat: no-repeat; background-position: top right;");
           }else{
             span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
           }
         }
-        unordered_list.append(span1);
+        let dividerLi = document.createElement("div");
+        //dividerLi.setAttribute("class", "testDiv");
+        dividerLi.style.display = "block";
+
+        unordered_list.append(dividerLi);
+        dividerLi.append(span1);
       });
       divContainer.append(unordered_list)
       // Les associations de composant
@@ -103,7 +108,7 @@ function initiateDisplay():Promise<Function>{
         }else{
           if (test_if_image_link.test(option[col_attribute.toString()]) || test_if_image_path.test(option[col_attribute.toString()])) {
             item.setAttribute("class", "the_option_of_each_product");
-            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: 200px 100px; background-repeat: no-repeat; background-position: top right;");
+            item.setAttribute("style", "background-image:url(" + option.image_src +"); background-size: contain; background-repeat: no-repeat; background-position: top right;");
           }else{
             span1.innerHTML = col_attribute.toString() + " : " + option[col_attribute.toString()] + "   |   "
           }

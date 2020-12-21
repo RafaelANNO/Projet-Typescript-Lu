@@ -10,20 +10,25 @@
     <table>
         <tr>
           <td id="leftside_table">
-            <input type="text" id="leftside_table_search_bar">
-            <input type="button" value="rechercher" onclick="search_leftside();">
-            <input type="button" value="faire monter l'article" onclick="up_item_select_leftside();"></input>
-            <input type="button" value="faire descendre l'article" onclick="down_item_select_leftside();"></input>
+            <div class="button_action">
+              <input type="text" id="leftside_table_search_bar" placeholder="Rechercher">
+              <input type="button" value="Rechercher" onclick="search_leftside();">
+              <input type="button" value="Faire monter l'article" onclick="up_item_select_leftside();"></input>
+              <input type="button" value="Faire descendre l'article" onclick="down_item_select_leftside();"></input>
+            </div> 
+            
           </td>
-          <td>
-            <input type="button" value="<- transferer vers la gauche" onclick="delIt();"></input>
-            <input type="button" value="transferer vers la droite ->" onclick="addIt();"></input>
+          <td class="middle_table button_action">
+            <input type="button" value="<- Transferer vers la gauche" onclick="delIt();"></input>
+            <input type="button" value="Transferer vers la droite ->" onclick="addIt();"></input>
           </td>
           <td id="rightside_table">
-            <input type="text" id="rightside_table_search_bar">
-            <input type="button" value="rechercher" onclick="search_rightside();">
-            <input type="button" value="faire monter l'article" onclick="up_item_select_rightside();"></input>
-            <input type="button" value="faire descendre l'article" onclick="down_item_select_rightside();"></input>
+            <div class="button_action">
+              <input type="text" id="rightside_table_search_bar" placeholder="Rechercher">
+              <input type="button" value="Rechercher" onclick="search_rightside();">
+              <input type="button" value="Faire monter l'article" onclick="up_item_select_rightside();"></input>
+              <input type="button" value="Faire descendre l'article" onclick="down_item_select_rightside();"></input>
+            </div>
           </td>
         </tr>
     </table>
